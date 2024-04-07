@@ -1,0 +1,47 @@
+/* MissionBox.css */
+.mission-box {
+    background-color: rgba(102, 102, 102, 0.5) ; /* Colorless blurred background */
+    border-radius: 20px;
+    padding: 2%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    margin-top: 2.5%;
+    width: 45%;
+    padding-bottom: 7%;
+  }
+  
+  .mission-text {
+    font-weight: bold;
+    font-size: 70px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    color:rgba(255, 255, 255, 1);
+  }
+  
+  .view-all-btn {
+    background-color:rgba(33, 33, 33, 1);
+    color: #333;
+    border: 1px solid gray;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-top: auto; /* Push button to the bottom */
+    flex: auto;
+    position: fixed;
+    bottom: 40px;
+    left: 5%;
+    z-index: 1000;
+    width: 200px;
+    color:#ccc
+  }
+  
+  .view-all-btn:hover {
+    background-color:rgba(43, 43, 43, 1);
+    color: #ccc;
+    border-color: #ccc;
+  }
+  

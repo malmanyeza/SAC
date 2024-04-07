@@ -1,0 +1,55 @@
+.search-bar {
+  border-radius: 24px;
+  border: 1px solid rgba(85, 85, 85, 1); /* Slightly darker gray border */
+  background-color: rgba(230, 230, 230, 1); /* Lighter gray background */
+  padding: 5px;
+  position: relative;
+  width: 100%;
+  margin-left: 5%;
+  align-self: flex-end;
+}
+
+.search-bar.show-results {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding-bottom: 0px;
+}
+
+.search-input {
+  display: flex;
+  align-items: center;
+  background-color:  rgba(230, 230, 230, 1); /* White background to match search bar */
+  border: none; /* Remove border */
+  border-radius: 24px; /* Maintain border radius */
+  padding: 8px;
+}
+
+.search-input input {
+  border: none; /* Remove input border */
+  background-color: transparent; /* Make input background transparent */
+  outline: none; /* Remove input outline on focus */
+  flex: 1; /* Take up remaining space */
+}
+
+.search-icon {
+  margin-right: 8px;
+}
+
+.clear-icon {
+  cursor: pointer;
+}
+
+.search-results {
+  position: absolute;
+  top: 100%; /* Halfway below the search bar with 8px margin */
+  left: 0;
+  right: 0;
+  background-color:  rgba(230, 230, 230, 1); ; /* Light pink for results background */
+  border: 1px solid rgba(85, 85, 85, 1); /* Slightly darker gray border */
+  border-top: none;
+  border-radius: 0 0 24px 24px;
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 200px; /* Max height for results */
+  overflow: hidden;
+}

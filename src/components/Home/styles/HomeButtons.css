@@ -1,0 +1,9 @@
+/* HomeButtons.css */
+.home-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: space-around;
+    align-items: end;
+  }
+  

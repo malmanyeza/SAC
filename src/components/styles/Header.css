@@ -1,0 +1,59 @@
+/* Header.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 50px;
+  background-color: rgba(102, 102, 102, 0.5); /* Matches container background */
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin-top: 2%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.logo img {
+  height: 50px; /* Adjust as needed */
+}
+
+.navigation {
+  display: flex;
+}
+
+.nav-link {
+  margin-left: 20px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 1); /* Darker gray for readability (consider WCAG contrast) */
+  font-weight: 600;
+  position: relative; /* Position relative for the pseudo-element */
+  padding: 10px; /* Increase padding for larger clickable area */
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 8px;
+  /* Removed border as background color matches container */
+  z-index: -1; /* Behind the text */
+  transition: background-color 0.3s; /* Animate background color on hover */
+}
+
+.nav-link:hover::before {
+  background-color: rgba(85, 85, 85, 0.3); /* Slightly darker shade on hover for subtle effect */
+}
+
+.logoAndSearchBar {
+  display: flex;
+  align-items: center;
+}
+
+.logoAndSearchBar {
+  height: 50px; /* Adjust as needed */
+  margin-right: 20px; /* Add margin between logo and search bar */
+  width: 49%;
+}
+

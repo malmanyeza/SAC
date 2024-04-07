@@ -1,0 +1,32 @@
+.categories-container {
+    display: flex;
+    justify-content: center;
+    
+  }
+  
+  .category-btn {
+    padding: 8px 16px; /* Adjusted padding */
+    margin-right:  10px;
+    border: 2px solid transparent; /* Initial border is transparent */
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Transition for smoother hover effect */
+  }
+  
+  .category-btn:hover {
+    background-color: #f0f0f0; /* Light gray on hover */
+    color: #333; /* Dark text on hover */
+    border-color: #ccc; /* Border color on hover */
+  }
+  
+  .category-btn.selected {
+    color: #333; /* White text for selected */
+    border-color: #007bff; /* Border color for selected */
+  }
+  
+  .category-btn:focus {
+    outline: none; /* Remove outline on focus */
+  }
+  
+  /* Add more specific styling as needed */
+  

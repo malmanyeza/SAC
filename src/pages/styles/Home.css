@@ -1,0 +1,46 @@
+section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+#hero {
+  padding-right: 100px;
+  padding-left: 100px;
+  color: #333;
+  background-image: url('../../../public/images/sculptures.jpg');
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-color: rgba(255, 255, 255, 0.7);
+  
+}
+
+#catalogue {
+  background-color: #f5f5f5;
+  color: #555;
+}
+
+#about {
+  background-color: #eaeaea;
+  color: #706262;
+}
+
+#contact {
+  background-color: #dddddd;
+  color: #666;
+}
+
+/* Additional CSS for the MissionBox and HomeButtons container */
+.hero-content {
+  margin-top: 4%;
+  height: 60%;
+  display: flex;
+  justify-content: space-around; 
+}
+
+.catalogue-content {
+  height: 60%;
+  justify-content: center;
+}
