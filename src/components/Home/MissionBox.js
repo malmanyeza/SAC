@@ -27,7 +27,7 @@ const MissionBox = () => {
   return (
     <div className="mission-box">
       <div className="mission-text">{displayText}</div>
-      {showButton && <button className="view-all-btn">View All</button>}
+      {showButton && <button className="view-all-btn">View Products</button>}
     </div>
   );
 }

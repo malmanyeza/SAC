@@ -11,8 +11,6 @@ const Categories = () => {
     'Woodwork',
     'Beadwork',
     'Metalwork',
-    'Textiles',
-    'Paintings',
     'Sculptures'
   ];
 

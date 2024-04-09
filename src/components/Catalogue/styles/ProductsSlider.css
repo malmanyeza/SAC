@@ -6,6 +6,7 @@
   background-color: transparent;
   overflow-x: hidden !important; /* Hide the horizontal scrollbar */
   height: 500px; /* Fixed height for the container */
+  position: relative; /* Position relative for absolute positioning of buttons */
 }
 
 .product-list-container {
@@ -16,6 +17,7 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   padding-left: 100px;
+  position: relative; /* Position relative for absolute positioning of buttons */
 }
 
 .product-list-container::-webkit-scrollbar {
@@ -42,6 +44,7 @@
   min-width: 200px; /* Set a minimum width for each card */
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
 }
 
 .product-card:hover {
@@ -50,7 +53,7 @@
 }
 
 .product-card:active {
-  transform: scale(0.95);
+  transform: scale(0.99);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
@@ -65,6 +68,11 @@
   margin-top: 10px;
 }
 
+.product-bottom {
+  flex: 1;
+  text-align: left;
+}
+
 .product-name {
   font-weight: bold;
   margin-bottom: 5px;
@@ -72,4 +80,66 @@
 
 .product-price {
   color: #777;
+}
+
+.quick-add-button {
+  border: 2px solid #333; /* Border color */
+  border-radius: 20px;
+  background-color: transparent;
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  justify-content: space-between;
+}
+
+.price-and-button{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quick-add-button:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.quick-add-button.in-cart {
+  background-color: #333;
+  color: #fff;
+}
+
+
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  z-index: 1;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-button.left {
+  left: 10px;
+}
+
+.scroll-button.right {
+  right: 10px;
+}
+
+.scroll-button.left:hover,
+.scroll-button.right:hover {
+  background-color: rgba(255, 255, 255, 0.9);
 }
