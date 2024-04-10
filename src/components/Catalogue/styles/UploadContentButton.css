@@ -1,0 +1,26 @@
+.upload-content-button {
+    background-color: #f0f0f0;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    padding: 12px; /* Increase padding for larger circle */
+    margin-left: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+  }
+  
+  .upload-content-button:hover {
+    border-color: #ccc;
+  }
+  
+  .upload-content-button:active {
+    transform: scale(0.95);
+  }
+  
+  .upload-content-button svg {
+    width: 24px; /* Set width of the icon */
+    height: 24px; /* Set height of the icon */
+  }
+  

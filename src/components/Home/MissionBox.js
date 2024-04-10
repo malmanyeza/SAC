@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './styles/MissionBox.css'; // CSS for styling
 
 const MissionBox = () => {
@@ -27,9 +28,13 @@ const MissionBox = () => {
   return (
     <div className="mission-box">
       <div className="mission-text">{displayText}</div>
-      {showButton && <button className="view-all-btn">View Products</button>}
+      {showButton && (
+        <Link to="/catalogue" className="view-all-btn">
+          View Products
+        </Link>
+      )}
     </div>
   );
-}
+};
 
 export default MissionBox;

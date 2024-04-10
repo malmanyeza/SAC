@@ -14,6 +14,7 @@
   cursor: pointer;
   width: 70%;
   align-self: flex-end; /* Align buttons to the right */
+  transition: transform 0.2s; /* Add transition effect for smooth scaling */
 }
 
 .signin-button {
@@ -26,6 +27,10 @@
   border: 1px solid rgba(52, 52, 52, 1); /* Optional: Slightly darker border on hover */
 }
 
+.signin-button:active {
+  transform: scale(0.9); /* Scale down on click */
+}
+
 .signup-button {
   background-color: rgba(52, 152, 219, 1); /* Light blue for secondary button */
   color: rgba(255, 255, 255, 1); /* White text for high contrast */
@@ -34,6 +39,10 @@
 .signup-button:hover {
   background-color: rgba(77, 182, 255, 1); /* Slightly lighter on hover */
   border: 1px solid rgba(77, 182, 255, 1); /* Optional: Slightly darker border on hover */
+}
+
+.signup-button:active {
+  transform: scale(0.95); /* Scale down on click */
 }
 
 .or-text {

@@ -8,10 +8,7 @@ const Categories = () => {
   const categories = [
     'All',
     'Pottery',
-    'Woodwork',
-    'Beadwork',
-    'Metalwork',
-    'Sculptures'
+    'Weavery'
   ];
 
   const handleCategoryClick = (category) => {

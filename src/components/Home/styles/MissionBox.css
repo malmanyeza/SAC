@@ -36,7 +36,10 @@
     left: 5%;
     z-index: 1000;
     width: 200px;
-    color:#ccc
+    color:#ccc;
+    align-self: center;
+    justify-content: center;
+    padding-left: 100px;
   }
   
   .view-all-btn:hover {

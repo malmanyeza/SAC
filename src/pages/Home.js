@@ -17,20 +17,6 @@ const Home = () => {
           <HomeButtons />
         </div>
       </section>
-
-      <section id="catalogue">
-        <div className="catalogue-content">
-          <Catalogue />
-        </div>  
-      </section>
-
-      <section id="about">
-        <About />
-      </section>
-
-      <section id="contact">
-        <Contacts />
-      </section>
     </div>
   );
 }

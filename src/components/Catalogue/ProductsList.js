@@ -3,22 +3,16 @@ import { ProductsContext } from '../../hooks/productsContext';
 import './styles/ProductsSlider.css'; // Your CSS for styling
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri'; // React Icons for chevron icons
 import { RiShoppingCart2Line } from 'react-icons/ri'; // Cart icon
+import DetailsModal from './DetailsModal'; // Import the DetailsModal component
 
 const ProductsSlider = () => {
-  const { selectedCategory, setNumberOfItemsInCart } = useContext(ProductsContext);
-
-  const [products, setProducts] = useState([
-    { id: 1, name: 'Product 1', price: '$10', image: require('../../assets/images/circularTswanda.jpeg'), category: 'Pottery', isInCart: false },
-    { id: 2, name: 'Product 2', price: '$15', image: require('../../assets/images/family.jpg'), category: 'Woodwork', isInCart: false },
-    { id: 3, name: 'Product 3', price: '$20', image: require('../../assets/images/stool.jpg'), category: 'Beadwork', isInCart: false },
-    { id: 4, name: 'Wala wala', price: '$10', image: require('../../assets/images/chirongo.jpg'), category: 'Metalwork', isInCart: false },
-    { id: 5, name: 'Flores', price: '$15', image: require('../../assets/images/3tswanda.jpg'), category: 'Textiles', isInCart: false },
-    { id: 6, name: 'Real', price: '$20', image: require('../../assets/images/2tswanda.jpg'), category: 'Paintings', isInCart: false },
-    // Add more products as needed
-  ]);
+  const { selectedCategory, setNumberOfItemsInCart, products, setProducts } = useContext(ProductsContext);
+  
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [scrollX, setScrollX] = useState(0);
   const [itemWidth, setItemWidth] = useState(200); // Width of one product item
+  const [selectedProduct, setSelectedProduct] = useState(null); // Selected product for modal
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
 
   useEffect(() => {
     if (selectedCategory === 'All') {
@@ -55,6 +49,15 @@ const ProductsSlider = () => {
     }
   };
 
+  const openDetailsModal = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const closeDetailsModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="products-slider">
       <button className="scroll-button left" onClick={handleScrollLeft}>
@@ -63,7 +66,7 @@ const ProductsSlider = () => {
       <div className="product-list-container">
         <ul className="product-list" style={{ transform: `translateX(${scrollX}px)` }}>
           {filteredProducts.map((product, index) => (
-            <li key={index} className="product-card">
+            <li key={index} className="product-card" onClick={() => openDetailsModal(product)}>
               <img src={product.image} alt={product.name} className="product-image" />
               <div className="product-info">
                 <div className="product-bottom">
@@ -73,7 +76,10 @@ const ProductsSlider = () => {
                   <p className="product-price">{product.price}</p>
                   <button
                     className={product.isInCart ? "quick-add-button in-cart" : "quick-add-button"}
-                    onClick={() => handleQuickAdd(product.id)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent event from bubbling to parent
+                      handleQuickAdd(product.id);
+                    }}
                     onMouseDown={(e) => e.preventDefault()} // Prevent default mousedown behavior
                   >
                     <RiShoppingCart2Line size={20} />
@@ -88,6 +94,12 @@ const ProductsSlider = () => {
       <button className="scroll-button right" onClick={handleScrollRight}>
         <RiArrowRightSLine size={40} />
       </button>
+      {/* Render DetailsModal */}
+      <DetailsModal
+        product={selectedProduct}
+        isOpen={isModalOpen}
+        onClose={closeDetailsModal}
+      />
     </div>
   );
 }

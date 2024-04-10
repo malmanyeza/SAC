@@ -1,48 +1,50 @@
 .items-in-cart-button {
-    display: flex;
-    align-items: center;
-    background-color: #f0f0f0;
-    padding: 8px 15px;
-    border-radius: 15px;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    margin-left: 10px;
-    border: 2px solid transparent;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-  }
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 8px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  border: 2px solid transparent;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.1s;
+}
 
-  .items-in-cart-button:hover{
-    border-color: #ccc;
+.items-in-cart-button:hover {
+  border-color: #ccc;
+}
 
-  }
-  
-  .cart-icon {
-    position: relative;
-    margin-right: 8px;
-  }
-  
-  .cart-icon svg {
-    vertical-align: middle;
-  }
-  
-  .cart-count {
-    position: absolute;
-    top: -20px;
-    right: -65px;
-    background-color: #007bff;
-    color: white;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    font-size: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .header-right {
-    display: flex;
-    align-items: center;
-  }
-  
+.items-in-cart-button:active {
+  transform: scale(0.95);
+}
+
+.cart-icon {
+  position: relative;
+  margin-right: 8px;
+}
+
+.cart-icon svg {
+  vertical-align: middle;
+}
+
+.cart-count {
+  position: absolute;
+  top: -20px;
+  right: -65px;
+  background-color: #007bff;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,63 @@
+.signIn-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(102, 102, 102, 0.5); /* Semi-transparent background */
+    z-index: 1000; /* Ensure the modal appears above other content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .signIn-modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+    width: 90%;
+    box-sizing: border-box; /* Include padding in the width */
+  }
+  
+  .signIn-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .signIn-close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .signIn-modal-body {
+    padding-bottom: 20px;
+  }
+  
+  .input-field {
+    width: calc(100%); /* Subtract padding from width */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding in the width */
+  }
+  
+  .modal-signin-button {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(52, 152, 219, 1);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .modal-signin-button:hover {
+    background-color: rgba(77, 182, 255, 1);
+  }
+  
