@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Categories from './Categories';
 import './styles/CatalogueHeader.css'; // CSS for styling
 import SearchBar from '../Home/SearchBar';
@@ -8,7 +8,7 @@ import { UserDataContext } from '../../hooks/userDataContext';
 
 const CatalogueHeader = () => {
   // Dummy count for demonstration, you'll need to calculate this based on products in cart
-  const { userData } = useContext(UserDataContext);
+  const { userData, setUserData } = useContext(UserDataContext);
   const itemsInCartCount = 3;
 
   // Handler for the Upload Content button

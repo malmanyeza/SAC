@@ -4,9 +4,11 @@ import './styles/ProductsSlider.css'; // Your CSS for styling
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri'; // React Icons for chevron icons
 import { RiShoppingCart2Line } from 'react-icons/ri'; // Cart icon
 import DetailsModal from './DetailsModal'; // Import the DetailsModal component
+import { UserDataContext } from '../../hooks/userDataContext';
 
 const ProductsSlider = () => {
   const { selectedCategory, setNumberOfItemsInCart, products, setProducts } = useContext(ProductsContext);
+  const { userData } = useContext(UserDataContext);
   
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [scrollX, setScrollX] = useState(0);
@@ -72,20 +74,27 @@ const ProductsSlider = () => {
                 <div className="product-bottom">
                   <h3 className="product-name">{product.name}</h3>
                 </div>
-                <div className='price-and-button'>
-                  <p className="product-price">{product.price}</p>
-                  <button
-                    className={product.isInCart ? "quick-add-button in-cart" : "quick-add-button"}
-                    onClick={(e) => {
-                      e.stopPropagation(); // Prevent event from bubbling to parent
-                      handleQuickAdd(product.id);
-                    }}
-                    onMouseDown={(e) => e.preventDefault()} // Prevent default mousedown behavior
-                  >
-                    <RiShoppingCart2Line size={20} />
-                    {product.isInCart ? "Added" : "Add"}
-                  </button>
-                </div>
+                {userData.userType === 'admin' ? (
+                  <div className="admin-buttons">
+                    <button >View Details</button>
+                    <button >Reject</button>
+                  </div>
+                ) : (
+                  <div className='price-and-button'>
+                    <p className="product-price">{product.price}</p>
+                    <button
+                      className={product.isInCart ? "quick-add-button in-cart" : "quick-add-button"}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent event from bubbling to parent
+                        handleQuickAdd(product.id);
+                      }}
+                      onMouseDown={(e) => e.preventDefault()} // Prevent default mousedown behavior
+                    >
+                      <RiShoppingCart2Line size={20} />
+                      {product.isInCart ? "Added" : "Add"}
+                    </button>
+                  </div>
+                )}
               </div>
             </li>
           ))}

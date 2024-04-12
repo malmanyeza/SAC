@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './styles/SignInModal.css'; // CSS for styling
+import { UserDataContext } from '../../hooks/userDataContext';
 
-const SignInModal = ({ setShowModal }) => {
+const SignInModal = () => {
+  const { loginWithEmailAndPassword, setIsLoginInProcess, isLoginInBackground } = useContext(UserDataContext);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+
+  const [error, setError] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -15,12 +20,17 @@ const SignInModal = ({ setShowModal }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add form submission logic here
-    console.log(formData);
-    // Close the modal after submitting
-    setShowModal(false);
+
+    // Check if email or password is empty
+    if (!formData.email.trim() || !formData.password.trim()) {
+      setError('Please fill in all fields.');
+      return;
+    }
+
+    // Call the signInWithEmailAndPassword function
+    loginWithEmailAndPassword(formData.email, formData.password);
   };
 
   return (
@@ -28,7 +38,7 @@ const SignInModal = ({ setShowModal }) => {
       <div className="signIn-modal-content">
         <div className="signIn-modal-header">
           <h2>Sign In</h2>
-          <button className="signIn-close-button" onClick={() => setShowModal(false)}>×</button>
+          <button className="signIn-close-button" onClick={() => setIsLoginInProcess(false)}>×</button>
         </div>
         <div className="signIn-modal-body">
           <form onSubmit={handleSubmit}>
@@ -48,12 +58,19 @@ const SignInModal = ({ setShowModal }) => {
               onChange={handleInputChange}
               className="input-field"
             />
-            <button type="submit" className="modal-signin-button">Sign In</button>
+            {error && <div className="error-message">{error}</div>}
+            <button
+              type="submit"
+              className={`modal-signin-button ${isLoginInBackground ? 'inactive' : ''}`}
+              disabled={isLoginInBackground}
+            >
+              {isLoginInBackground ? <div className="spinner"></div> : 'Sign In'}
+            </button>
           </form>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default SignInModal;

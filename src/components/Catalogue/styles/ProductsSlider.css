@@ -93,7 +93,7 @@
   justify-content: space-between;
 }
 
-.price-and-button{
+.price-and-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -109,6 +109,27 @@
   color: #fff;
 }
 
+.admin-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.admin-buttons button {
+  border: 2px solid #333;
+  border-radius: 20px;
+  background-color: transparent;
+  padding: 5px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-buttons button:hover {
+  background-color: #333;
+  color: #fff;
+}
 
 .scroll-button {
   position: absolute;

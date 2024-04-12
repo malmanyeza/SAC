@@ -30,8 +30,8 @@ const DetailsModal = ({ product, isOpen, onClose }) => {
             <div className="artisan-info">
             <h4>Artisan Info:</h4>
             <div className="artisan">
-                <img src={product.artisan.avatar} alt={product.artisan.name} className="artisan-avatar" />
-                <p className="artisan-name">{product.artisan.name}</p>
+                <img src={product.artisanImage} alt={product.artisanImage} className="artisan-avatar" />
+                <p className="artisan-name">{product.artisanName}</p>
             </div>
             </div>
         </div>

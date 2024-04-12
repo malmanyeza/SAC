@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './styles/LoginSignupButtons.css'; // CSS for styling
 import SignInModal from './SignInModal'; // Import the SignInModal component
 import SignUpModal from './SignUpModal'; // Import the SignUpModal component
+import { UserDataContext } from '../../hooks/userDataContext';
 
 const LoginSignupButtons = () => {
-  const [showSignInModal, setShowSignInModal] = useState(false);
-  const [showSignUpModal, setShowSignUpModal] = useState(false);
+
+  const {  setIsLoginInProcess, setIsSignUpInProcess, isLoginInProcess,isSignUpInProcess } = useContext(UserDataContext);
 
   const handleSignInClick = () => {
-    setShowSignInModal(true);
+    setIsLoginInProcess(true);
   };
 
   const handleSignUpClick = () => {
-    setShowSignUpModal(true);
+    setIsSignUpInProcess(true);
   };
 
   return (
@@ -21,8 +22,8 @@ const LoginSignupButtons = () => {
       <button className="signin-button" onClick={handleSignInClick}>Sign In</button>
       <div className="or-text">or</div>
       <button className="signup-button" onClick={handleSignUpClick}>Sign Up</button>
-      {showSignInModal && <SignInModal setShowModal={setShowSignInModal} />}
-      {showSignUpModal && <SignUpModal setShowModal={setShowSignUpModal} />}
+      {isLoginInProcess && <SignInModal  />}
+      {isSignUpInProcess && <SignUpModal  />}
     </div>
   );
 }
