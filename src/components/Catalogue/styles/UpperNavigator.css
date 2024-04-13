@@ -1,0 +1,32 @@
+.upper-navigator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .store-text {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .upper-nav-link {
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    border: none;
+    background-color: transparent;
+  }
+  
+  .upper-nav-link:hover {
+    background-color: #f0f0f0;
+    color: #333;
+    border-radius: 10px;
+  }
+  

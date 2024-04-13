@@ -1,33 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './styles/SearchBar.css'; // CSS for styling
 import { FaSearch, FaTimes } from 'react-icons/fa';
+import { ProductsContext } from '../../hooks/productsContext';
+import DetailsModal from '../Catalogue/DetailsModal';
 
 const SearchBar = () => {
-  const artisans = [
-    { id: 1, name: 'Artisan 1' },
-    { id: 2, name: 'Artisan 2' },
-    { id: 3, name: 'Artisan 3' },
-    { id: 4, name: 'Artisan 4' },
-    { id: 5, name: 'Artisan 5' },
-    { id: 6, name: 'Artisan 6' },
-    { id: 7, name: 'Artisan 7' },
-    { id: 8, name: 'Artisan 8' },
-    { id: 9, name: 'Artisan 9' },
-    { id: 10, name: 'Artisan 10' }
-  ];
+  const { products } = useContext(ProductsContext);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null); // State to store the selected product
+  const [showDetailsModal, setShowDetailsModal] = useState(false); // State to manage DetailsModal visibility
 
   // Function to handle search input change
   const handleSearchChange = (event) => {
     const term = event.target.value;
     setSearchTerm(term);
 
-    // Filter artisans based on search term
-    const results = artisans.filter(artisan =>
-      artisan.name.toLowerCase().includes(term.toLowerCase())
+    // Filter products based on search term
+    const results = products.filter(product =>
+      product.name.toLowerCase().includes(term.toLowerCase())
     );
     setSearchResults(results);
     setShowResults(!!term); // Set showResults to true if there is a search term
@@ -40,6 +33,17 @@ const SearchBar = () => {
     setShowResults(false); // Hide results when search is cleared
   };
 
+  // Function to handle click on a search result item
+  const handleResultClick = (product) => {
+    setSelectedProduct(product);
+    setShowDetailsModal(true); // Show the DetailsModal when a product is clicked
+  };
+
+  // Function to close the DetailsModal
+  const handleCloseDetailsModal = () => {
+    setShowDetailsModal(false);
+  };
+
   return (
     <div className={`search-bar ${showResults ? 'show-results' : ''}`}>
       <div className="search-input">
@@ -48,19 +52,28 @@ const SearchBar = () => {
           type="text"
           value={searchTerm}
           onChange={handleSearchChange}
-          placeholder="Search artisans"
+          placeholder="Search products"
         />
         {searchTerm && <FaTimes className="clear-icon" onClick={clearSearch} />}
       </div>
       {showResults && (
         <div className="search-results">
-          {searchResults.map(artisan => (
-            <div key={artisan.id}>{artisan.name}</div>
+          {searchResults.map(product => (
+            <div key={product.id} className="search-result-item" onClick={() => handleResultClick(product)}>
+              {product.name}
+            </div>
           ))}
         </div>
       )}
+      {showDetailsModal && (
+        <DetailsModal
+          product={selectedProduct}
+          isOpen={showDetailsModal}
+          onClose={handleCloseDetailsModal}
+        />
+      )}
     </div>
   );
-}
+};
 
 export default SearchBar;

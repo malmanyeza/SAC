@@ -1,7 +1,8 @@
 import React, { createContext, useState, useContext , useEffect} from 'react';
-import { getFirestore, doc, setDoc,collection, getDocs,addDoc, getDoc, deleteDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc,collection, updateDoc,addDoc, getDoc, deleteDoc, onSnapshot,getDocs } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import app from '../firebase.js';
+import { set } from 'firebase/database';
 
 
 // Create the ProductsContext
@@ -12,6 +13,11 @@ const ProductsProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [numberOfItemsInCart, setNumberOfItemsInCart] = useState(0)
   const [productsToBeApproved,setProductsToBeApproved] = useState([])
+  const [approvalInProgress, setApprovalInProgress] = useState(false);
+  const [disapprovalInProgress, setDisapprovalInProgress] = useState(false);
+  const [viewApprovedProducts, setViewApprovedProducts] = useState(false);
+  const [uploadInProgress, setUploadInProgress] = useState(false)
+  const [uploadModalOpen, setUploadModalOpen] = useState(false)
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -88,58 +94,57 @@ const ProductsProvider = ({ children }) => {
   };
 
 
-  // // Load approved artifacts from Firestore when the component mounts
-  // useEffect(() => {
-  //   const fetchApprovedArtifacts = async () => {
-  //     try {
-  //       const db = getFirestore(app);
-  //       const artifactsCollectionRef = collection(db, 'approvedArtifacts');
-  //       const artifactsSnapshot = await getDocs(artifactsCollectionRef);
-  //       const artifactsList = [];
-  //       artifactsSnapshot.forEach((doc) => {
-  //         const artifactData = doc.data();
-  //         artifactsList.push({
-  //           id: doc.id,
-  //           ...artifactData,
-  //         });
-  //       });
-  //       setProducts(artifactsList);
-  //     } catch (error) {
-  //       console.error('Error fetching approved artifacts:', error.message);
-  //     }
-  //   };
-
-  //   fetchApprovedArtifacts();
-  // }, []); // Empty dependency array means it will only run once when the component mounts
+  // Load approved artifacts from Firestore when the component mounts
+  useEffect(() => {
+    const db = getFirestore(app);
+    const artifactsCollectionRef = collection(db, 'approvedArtifacts');
+  
+    const unsubscribe = onSnapshot(artifactsCollectionRef, (snapshot) => {
+      const artifactsList = [];
+      snapshot.forEach((doc) => {
+        const artifactData = doc.data();
+        artifactsList.push({
+          id: doc.id,
+          ...artifactData,
+        });
+      });
+      setProducts(artifactsList);
+    });
+  
+    return () => unsubscribe(); // Unsubscribe when the component unmounts
+  
+  }, []); // Empty dependency array means it will only run once when the component mounts
+  
 
 
-  //  // Load unapproved artifacts from Firestore when the component mounts
-  //  useEffect(() => {
-  //   const fetchToBeApprovedArtifacts = async () => {
-  //     try {
-  //       const db = getFirestore(app);
-  //       const artifactsCollectionRef = collection(db, 'toBeApprovedArtifacts');
-  //       const artifactsSnapshot = await getDocs(artifactsCollectionRef);
-  //       const artifactsList = [];
-  //       artifactsSnapshot.forEach((doc) => {
-  //         const artifactData = doc.data();
-  //         artifactsList.push({
-  //           id: doc.id,
-  //           ...artifactData,
-  //         });
-  //       });
-  //       setProductsToBeApproved(artifactsList);
-  //     } catch (error) {
-  //       console.error('Error fetching approved artifacts:', error.message);
-  //     }
-  //   };
+   // Load unapproved artifacts from Firestore and listen for real-time changes
+  useEffect(() => {
+    const db = getFirestore(app);
+    const artifactsCollectionRef = collection(db, 'toBeApprovedArtifacts');
 
-  //   fetchToBeApprovedArtifacts();
-  // }, []); // Empty dependency array means it will only run once when the component mounts
+    const unsubscribe = onSnapshot(artifactsCollectionRef, (snapshot) => {
+      const artifactsList = [];
+      snapshot.forEach((doc) => {
+        const artifactData = doc.data();
+        artifactsList.push({
+          id: doc.id,
+          ...artifactData,
+        });
+      });
+      setProductsToBeApproved(artifactsList);
+    });
+
+    return () => {
+      // Unsubscribe from the snapshot listener when the component unmounts
+      unsubscribe();
+    };
+  }, []); // Empty dependency array means it will only run once when the component mounts
+
 
 
    // Function to upload artifact to Firebase
    const uploadArtifactToFirebase = async (artifactData, userData) => {
+    setUploadInProgress(true)
     try {
       // Upload image to Firebase Storage
       const storage = getStorage(app);
@@ -152,7 +157,7 @@ const ProductsProvider = ({ children }) => {
       // Add artifact data to Firestore under collection 'artifacts'
       const db = getFirestore(app);
       const artifactsCollectionRef = collection(db, 'toBeApprovedArtifacts');
-      const newArtifactRef = await addDoc(artifactsCollectionRef, {
+      const artifactWithId =  {
         name: artifactData.productName,
         price: artifactData.productPrice,
         category: artifactData.category,
@@ -161,32 +166,39 @@ const ProductsProvider = ({ children }) => {
         artisanName: artifactData.artisanName,
         artisanImage: artifactData.artisanImage,
         artisanUid: artifactData.artisanUid,
-        id: userData.uid, // Include the UID of the user
+        id:null
+      };
+
+      const newArtifactRef = await addDoc(artifactsCollectionRef, artifactWithId);
+
+      // Get the ID of the added document
+      const newArtifactId = newArtifactRef.id;
+
+      // Update the artifact in Firestore with its ID
+      await updateDoc(doc(artifactsCollectionRef, newArtifactId), {
+        id: newArtifactId,
       });
   
       console.log('Artifact uploaded successfully with ID:', newArtifactRef.id);
   
-      // Add the new artifact to the local products state
-      setProducts([...products, {
-        ...artifactData,
-        image: imageUrl, // Use the Firebase image URL
-        isInCart: false,
-        id: newArtifactRef.id, // Use the generated Firestore document ID
-      }]);
-  
       // Show an alert for successful upload
       window.alert('Artifact uploaded successfully!');
-  
+      setUploadInProgress(false)
+      setUploadModalOpen(false)
     } catch (error) {
       console.error('Error uploading artifact:', error.message);
       // Show an alert for upload error
       window.alert('Error uploading artifact. Please try again.');
+      setUploadInProgress(false)
+      setUploadModalOpen(false)
     }
   };
 
   
 
   const approveProduct = async (productId) => {
+    console.log('Approving product with ID:', productId);
+    setApprovalInProgress(true)
     try {
       const db = getFirestore(app);
   
@@ -213,17 +225,19 @@ const ProductsProvider = ({ children }) => {
       // Optional: Fetch updated products from Firestore and update local state
       const updatedProductsToBeApproved = productsToBeApproved.filter((product) => product.id !== productId);
       setProductsToBeApproved(updatedProductsToBeApproved);
-  
+      setApprovalInProgress(false)
     } catch (error) {
       console.error('Error approving artifact:', error.message);
       // Show an alert for approval error
       window.alert('Error approving artifact. Please try again.');
+      setApprovalInProgress(false)
     }
   };
 
 
 
   const disapproveProduct = async (productId) => {
+    setDisapprovalInProgress(true)
     try {
       const db = getFirestore(app);
   
@@ -236,19 +250,66 @@ const ProductsProvider = ({ children }) => {
       // Optional: Fetch updated products from Firestore and update local state
       const updatedProductsToBeApproved = productsToBeApproved.filter((product) => product.id !== productId);
       setProductsToBeApproved(updatedProductsToBeApproved);
-  
+      setDisapprovalInProgress(false)
     } catch (error) {
       console.error('Error disapproving artifact:', error.message);
       // Show an alert for disapproval error
       window.alert('Error disapproving artifact. Please try again.');
+      setDisapprovalInProgress(false)
     }
   };
+
+  const deleteProduct = async (productId) => {
+    try {
+      const db = getFirestore(app);
+  
+      // Get the reference to the product document
+      const productRef = doc(db, 'approvedArtifacts', productId);
+  
+      // Check if the product exists
+      const productSnapshot = await getDoc(productRef);
+      if (!productSnapshot.exists()) {
+        console.error('Product not found.');
+        return;
+      }
+  
+      // Delete the product document
+      await deleteDoc(productRef);
+      console.log('Product deleted successfully.');
+  
+      // Optional: Fetch updated products from Firestore and update local state
+      const updatedProducts = products.filter((product) => product.id !== productId);
+      setProducts(updatedProducts);
+    } catch (error) {
+      console.error('Error deleting product:', error.message);
+      // Show an alert for deletion error
+      window.alert('Error deleting product. Please try again.');
+    }
+  };
+  
   
 
   return (
     <ProductsContext.Provider value={{ 
-      selectedCategory, selectCategory , setNumberOfItemsInCart, numberOfItemsInCart,
-      products, setProducts,uploadArtifactToFirebase, productsToBeApproved
+      selectedCategory,
+      selectCategory,
+      setNumberOfItemsInCart,
+      numberOfItemsInCart,
+      products,
+      setProducts,
+      uploadArtifactToFirebase,
+      productsToBeApproved,
+      approveProduct,
+      disapproveProduct,
+      disapprovalInProgress,
+      approvalInProgress,
+      viewApprovedProducts,
+      setViewApprovedProducts,
+      deleteProduct, // Include the deleteProduct function
+      uploadInProgress,
+      setUploadInProgress,
+      setUploadModalOpen,
+      uploadModalOpen
     }}>
       {children}
     </ProductsContext.Provider>

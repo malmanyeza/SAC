@@ -9,6 +9,7 @@ export const UserDataContext = createContext();
 
 // Create a provider for components to consume and update the user data
 export const UserDataProvider = ({ children }) => {
+
   // Get the userData state and setter from UserDataContext
   const [userData, setUserData] = useState({
     uid: '',
@@ -73,8 +74,6 @@ export const UserDataProvider = ({ children }) => {
         setIsSignUpInProcess(false);
         setIsSignUpInBackground(false);
 
-        // Show success alert
-        alert('User successfully signed up!');
       }
     } catch (error) {
       console.error('Error signing up:', error.message);
@@ -104,6 +103,7 @@ export const UserDataProvider = ({ children }) => {
         if (userSnapshot.exists()) {
           const userData = userSnapshot.data();
           // Update local user data state
+          console.log('User data after login:', userData);
           setUserData({
             uid: user.uid,
             name: userData.name,
@@ -117,8 +117,7 @@ export const UserDataProvider = ({ children }) => {
           setIsLoginInProcess(false);
           setIsLoginInBackground(false);
 
-          // Show success alert
-          alert('User successfully logged in!');
+         
         }
       }
     } catch (error) {

@@ -1,6 +1,6 @@
 .search-bar {
   border-radius: 24px;
-  border: 1px solid rgba(85, 85, 85, 1); /* Slightly darker gray border */
+  border: 0px solid rgba(85, 85, 85, 1); /* Slightly darker gray border */
   background-color: rgba(230, 230, 230, 1); /* Lighter gray background */
   padding: 5px;
   position: relative;
@@ -12,13 +12,12 @@
 .search-bar.show-results {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  padding-bottom: 0px;
 }
 
 .search-input {
   display: flex;
   align-items: center;
-  background-color:  rgba(230, 230, 230, 1); /* White background to match search bar */
+  background-color: rgba(230, 230, 230, 1); /* White background to match search bar */
   border: none; /* Remove border */
   border-radius: 24px; /* Maintain border radius */
   padding: 8px;
@@ -44,12 +43,29 @@
   top: 100%; /* Halfway below the search bar with 8px margin */
   left: 0;
   right: 0;
-  background-color:  rgba(230, 230, 230, 1); ; /* Light pink for results background */
-  border: 1px solid rgba(85, 85, 85, 1); /* Slightly darker gray border */
+  background-color: rgba(230, 230, 230, 1); /* Light pink for results background */
+  border: 0px solid rgba(85, 85, 85, 1); /* Slightly darker gray border */
   border-top: none;
   border-radius: 0 0 24px 24px;
   padding: 10px;
   overflow-y: auto;
   max-height: 200px; /* Max height for results */
   overflow: hidden;
+  z-index: 1000; /* Ensure it stays on top of other elements */
+}
+
+/* Style for each search result item */
+.search-result-item {
+  cursor: pointer;
+  padding: 8px;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.search-result-item:hover {
+  background-color: rgba(200, 200, 200, 1); /* Light gray background on hover */
+  border-radius: 5px;
+}
+
+.search-result-item:active {
+  transform: scale(0.98); /* Reduce size a bit when clicked */
 }

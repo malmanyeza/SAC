@@ -1,157 +1,191 @@
 /* Modal Overlay */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Modal Content */
-  .modal-content {
-    background-color: #fff;
-    border-radius: 10px;
-    max-width: 80%;
-    width: 600px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    overflow: auto; /* Make modal scrollable */
-    max-height: 80%;
-    padding-right: 20px; /* Add padding to the right */
-    padding-bottom: 20px; /* Add padding to the bottom */
-  }
-  
-  /* Modal Header */
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  /* Close Button */
-  .details-close-button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #333;
-    cursor: pointer;
-  }
-  
-  .details-close-button:hover {
-    color: #555;
-  }
-  
-  /* Modal Body */
-  .modal-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Product Details Container */
-  .product-details {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Product Image */
-  .product-image {
-    margin-bottom: 20px;
-    text-align: center; /* Center the image */
-  }
-  
-  .product-image img {
-    border-radius: 8px;
-    object-fit: contain;
-    max-width: 50%; /* Ensure image fits within container */
-    max-height: 200px; /* Limit height for scrolling */
-  }
-  
-  /* Product Info */
-  .product-info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .product-name {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .product-price {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .product-description {
-    margin-bottom: 20px;
-  }
-  
-  /* Artisan Info */
-  .artisan-info {
-    margin-bottom: 20px;
-  }
-  
-  .artisan {
-    display: flex;
-    align-items: center;
-  }
-  
-  .artisan-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  .artisan-name {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  /* Modal Footer */
-  .modal-footer {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  /* Buttons */
-  .add-to-cart-button,
-  .buy-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .add-to-cart-button {
-    background-color: #007bff;
-    color: #fff;
-    margin-right: 10px;
-  }
-  
-  .buy-button {
-    background-color: #28a745;
-    color: #fff;
-  }
-  
-  .add-to-cart-button:hover,
-  .buy-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .add-to-cart-button:active,
-  .buy-button:active {
-    transform: translateY(1px);
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  max-width: 80%;
+  width: 600px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  overflow: auto; /* Make modal scrollable */
+  max-height: 80%;
+  padding-right: 20px; /* Add padding to the right */
+  padding-bottom: 20px; /* Add padding to the bottom */
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Close Button */
+.details-close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+}
+
+.details-close-button:hover {
+  color: #555;
+}
+
+/* Modal Body */
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Product Details Container */
+.product-details {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Product Image */
+.product-image {
+  margin-bottom: 20px;
+  text-align: center; /* Center the image */
+}
+
+.product-image img {
+  border-radius: 8px;
+  object-fit: contain;
+  max-width: 50%; /* Ensure image fits within container */
+  max-height: 200px; /* Limit height for scrolling */
+}
+
+/* Product Info */
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  margin-bottom: 20px;
+}
+
+/* Artisan Info */
+.artisan-info {
+  margin-bottom: 20px;
+}
+
+.artisan {
+  display: flex;
+  align-items: center;
+}
+
+.artisan-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.artisan-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Modal Footer */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Buttons */
+.add-to-cart-button,
+.buy-button,
+.approve-button,
+.disapprove-button,
+.delete-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  position: relative;
+}
+
+/* Spinner */
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.add-to-cart-button {
+  background-color: #007bff;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.buy-button {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.approve-button {
+  background-color: #28a745;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.disapprove-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.add-to-cart-button:hover,
+.buy-button:hover,
+.approve-button:hover,
+.disapprove-button:hover,
+.delete-button:hover {
+  background-color: #0056b3;
+}
+
+.add-to-cart-button:active,
+.buy-button:active,
+.approve-button:active,
+.disapprove-button:active,
+.delete-button:active {
+  transform: translateY(1px);
+}

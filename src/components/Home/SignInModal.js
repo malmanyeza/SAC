@@ -1,9 +1,27 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './styles/SignInModal.css'; // CSS for styling
 import { UserDataContext } from '../../hooks/userDataContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const SignInModal = () => {
-  const { loginWithEmailAndPassword, setIsLoginInProcess, isLoginInBackground } = useContext(UserDataContext);
+
+  const navigate = useNavigate();
+
+  const { loginWithEmailAndPassword, setIsLoginInProcess, isLoginInBackground, userData,setUserData } = useContext(UserDataContext);
+
+  useEffect(() => {
+    if (userData.isLoggedIn) {
+      navigate('/catalogue');
+      // Set userData.isLoggedIn to false after navigating to catalogue
+      setUserData(prevUserData => ({
+        ...prevUserData,
+        isLoggedIn: false
+      }));
+    }
+  }, [userData.isLoggedIn]);
+  
+
 
   const [formData, setFormData] = useState({
     email: '',

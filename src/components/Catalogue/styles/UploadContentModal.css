@@ -88,3 +88,12 @@
 .upload-button:hover {
   background-color: #0056b3;
 }
+.upload-spinner {
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}

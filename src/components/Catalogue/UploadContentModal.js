@@ -1,13 +1,19 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import './styles/UploadContentModal.css'; // CSS for styling
 import { UserDataContext } from '../../hooks/userDataContext';
 import { ProductsContext } from '../../hooks/productsContext';
+import { RiLoader4Line } from 'react-icons/ri'; // Loader icon from React Icons
 
 const UploadContentModal = ({ onClose }) => {
-
   const { userData } = useContext(UserDataContext);
-  const { uploadArtifactToFirebase } = useContext(ProductsContext);
-  
+  const { uploadArtifactToFirebase, uploadInProgress, setUploadModalOpen, uploadModalOpen } = useContext(ProductsContext);
+
+  useEffect(() => {
+    if (!uploadInProgress&& !uploadModalOpen) {
+      onClose();
+    }
+  }, [uploadInProgress, onClose]);
+
   const [formData, setFormData] = useState({
     productName: '',
     productPrice: '',
@@ -73,7 +79,6 @@ const UploadContentModal = ({ onClose }) => {
     if (isFormValid()) {
       // Call the uploadArtifactToFirebase function from context
       uploadArtifactToFirebase(formData, userData);
-      onClose(); // Close the modal after form submission
     } else {
       console.log('Form contains errors. Please correct them.');
     }
@@ -132,14 +137,12 @@ const UploadContentModal = ({ onClose }) => {
   return (
     <div className="upload-content-modal">
       <div className="upload-content-modal-content">
-        <span className="close-button" onClick={onClose}>&times;</span>
+        <span className="close-button" onClick={onClose}>
+          &times;
+        </span>
         <div className="upload-content-square" onClick={handleSquareClick}>
           {formData.productImage ? (
-            <img
-              src={URL.createObjectURL(formData.productImage)}
-              alt="Product"
-              className="uploaded-image"
-            />
+            <img src={URL.createObjectURL(formData.productImage)} alt="Product" className="uploaded-image" />
           ) : (
             <span className="upload-icon">+</span>
           )}
@@ -150,7 +153,7 @@ const UploadContentModal = ({ onClose }) => {
             onChange={handleImageChange}
             className="image-input"
             style={{ display: 'none' }}
-            required  // Add required attribute for validation
+            required // Add required attribute for validation
           />
         </div>
         {formErrors.image && <div className="error">{formErrors.image}</div>}
@@ -197,7 +200,11 @@ const UploadContentModal = ({ onClose }) => {
           </select>
           {formErrors.category && <div className="error">{formErrors.category}</div>}
           <button type="submit" className="upload-button" disabled={!isFormValid()}>
-            Upload Content
+            {uploadInProgress ? (
+              <RiLoader4Line className="upload-spinner" />
+            ) : (
+              'Upload Content'
+            )}
           </button>
         </form>
       </div>
