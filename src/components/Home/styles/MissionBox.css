@@ -40,6 +40,8 @@
     align-self: center;
     justify-content: center;
     padding-left: 100px;
+    align-items: center;
+    padding-right: 150px;
   }
   
   .view-all-btn:hover {

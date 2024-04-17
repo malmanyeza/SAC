@@ -13,9 +13,13 @@
   z-index: 1000;
 }
 
-.logo img {
+.logo {
   height: 50px; /* Adjust as needed */
+  width: 70px;
+  border-radius: 5px;
 }
+
+
 
 .navigation {
   display: flex;

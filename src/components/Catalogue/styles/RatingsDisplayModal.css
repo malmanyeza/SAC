@@ -1,0 +1,95 @@
+.display-ratings-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .display-ratings-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    position: relative;
+    overflow-y: auto; /* Add scroll bar for vertical overflow */
+    max-height: 70vh; /* Limit height and enable scroll */
+  }
+  
+  .display-ratings-modal.active {
+    display: block;
+  }
+  
+  .display-ratings-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .display-ratings-modal-header h2 {
+    margin: 0;
+  }
+  
+  .display-close-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #888;
+  }
+  
+  .display-close-btn:hover {
+    color: #333;
+  }
+  
+  .display-ratings-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  .display-rating-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .display-rater-email {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .display-rating-stars {
+    margin-bottom: 5px;
+  }
+  
+  .display-star-filled,
+  .display-star-empty {
+    color: #f6bd60; /* Yellow color for stars */
+    font-size: 20px;
+  }
+  
+  .display-star-empty {
+    color: #ccc; /* Color for empty stars */
+  }
+  
+  .display-rating-comment {
+    font-style: italic;
+    color: #555;
+  }
+  
+  @media (max-width: 768px) {
+    .ratings-modal-content {
+      width: 90%;
+      margin: 10% auto;
+      padding: 15px;
+    }
+  }
+  

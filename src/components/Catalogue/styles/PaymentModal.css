@@ -1,0 +1,115 @@
+/* Modal Content */
+.payment-modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width:550px;
+    align-self: center;
+  }
+  
+  .small-text {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .line {
+    border: 0.5px solid #ddd;
+    margin: 15px 0;
+  }
+  
+  .payment-methods {
+    display: flex;
+    align-items: center;
+    width: 80%;
+  }
+  
+  .circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    margin-right: 15px;
+    cursor: pointer;
+  }
+  
+  .circle.selected {
+    border: 7px solid #ddd;
+    border-color: #007bff;
+    width: 10px;
+    height: 10px;
+  }
+  
+  .method-images {
+    display: flex;
+    margin-right: 100px;
+  }
+  
+  .method-image {
+    width: 80px;
+    height: 50px;
+    margin-right: 10px;
+    object-fit: contain;
+  }
+  
+  .ecocash-image {
+    width: 80px;
+    height: 50px;
+    object-fit: contain;
+  }
+  
+  .input-section {
+    margin-top: 20px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    
+  }
+  
+  .row .input-field {
+    flex: 1;
+  }
+  
+  .confirm-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .confirm-button:hover {
+    background-color: #0056b3;
+  }
+
+  .error-text {
+    color: red;
+    font-size: 14px;
+  }
+
+  .payment-spinner {
+    left: 50%;
+  align-self: center ;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin: -10;
+  }
+  

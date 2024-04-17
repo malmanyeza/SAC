@@ -18,80 +18,70 @@ const ProductsProvider = ({ children }) => {
   const [viewApprovedProducts, setViewApprovedProducts] = useState(false);
   const [uploadInProgress, setUploadInProgress] = useState(false)
   const [uploadModalOpen, setUploadModalOpen] = useState(false)
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: 'Product 1',
-      price: '$10',
-      image: require('../assets/images/circularTswanda.jpeg'),
-      category: 'Pottery',
-      isInCart: false,
-      description: 'This is a beautiful pottery product.',
-      artisanName: 'Artisan 1',
-      artisanImage: require('../assets/images/stool.jpg'),
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      price: '$15',
-      image: require('../assets/images/family.jpg'),
-      category: 'Woodwork',
-      isInCart: false,
-      description: 'A lovely woodwork creation for your home. aljfoar oi aoireaoe faoiea odi aoejf foaoeifjaoief aoiea oiaiefa oe afeoi aoieai iaeoi fa iefwao ief ojeaoiwo aoieawoef ao ieaojeaiejaef',
-      artisanName: 'Artisan 2',
-      artisanImage: require('../assets/images/stool.jpg'),
-    },
-    {
-      id: 3,
-      name: 'Product 3',
-      price: '$20',
-      image: require('../assets/images/stool.jpg'),
-      category: 'Beadwork',
-      isInCart: false,
-      description: 'Exquisite beadwork perfect for any occasion.',
-      artisanName: 'Artisan 3',
-      artisanImage: require('../assets/images/stool.jpg'),
-    },
-    {
-      id: 4,
-      name: 'Wala wala',
-      price: '$10',
-      image: require('../assets/images/chirongo.jpg'),
-      category: 'Metalwork',
-      isInCart: false,
-      description: 'Unique metalwork design.',
-      artisanName:'Artisan 4',
-      artisanImage: require('../assets/images/stool.jpg'),
-    },
-    {
-      id: 5,
-      name: 'Flores',
-      price: '$15',
-      image: require('../assets/images/3tswanda.jpg'),
-      category: 'Textiles',
-      isInCart: false,
-      description: 'Beautiful textile artistry for your space.',
-      artisanName: 'Artisan 5',
-      artisanImage: require('../assets/images/stool.jpg'),
-    },
-    {
-      id: 6,
-      name: 'Real',
-      price: '$20',
-      image: require('../assets/images/2tswanda.jpg'),
-      category: 'Paintings',
-      isInCart: false,
-      description: 'Captivating painting that tells a story.',
-      artisanName: 'Artisan 6',
-      artisanImage: require('../assets/images/stool.jpg'),
-    },
-    // Add more products as needed
-  ]);
+  const [products,setProducts] = useState([])
+  const [isRatingsModalOpen, setIsRatingsModalOpen] = useState(false)
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false)
+  const [ratings, setRatings] = useState([]);
+  const [isPaymentModalOpen,setIsPaymentModalOpen] = useState(false)
+  
+  const [averageRating, setAverageRating] = useState(0);
   
 
   const selectCategory = (category) => {
     setSelectedCategory(category);
   };
+
+  ///This is the code that gets ratings from firebase
+  useEffect(() => {
+    const fetchAverageRating = async () => {
+      try {
+        const db = getFirestore(app);
+        const ratingsCollectionRef = collection(db, 'ratings');
+  
+        // Use onSnapshot to listen for real-time updates
+        const unsubscribe = onSnapshot(ratingsCollectionRef, (querySnapshot) => {
+          let totalRating = 0;
+          let totalRatings = 0;
+          const fetchedRatings = [];
+  
+          querySnapshot.forEach((doc) => {
+            const ratingData = doc.data();
+            const rating = ratingData.rating;
+            
+            if (!isNaN(rating) && rating >= 0 && rating <= 5) {
+              totalRating += rating;
+              totalRatings++;
+              fetchedRatings.push({
+                id: doc.id,
+                ...ratingData
+              });
+            }
+          });
+  
+          let newAverageRating = 0;
+          if (totalRatings > 0) {
+            newAverageRating = totalRating / totalRatings;
+          }
+  
+          setAverageRating(newAverageRating);
+          setRatings(fetchedRatings);
+        });
+  
+        // Return a cleanup function to unsubscribe from the snapshot listener
+        return () => {
+          unsubscribe();
+        };
+      } catch (error) {
+        console.error('Error calculating average rating:', error.message);
+        setAverageRating(0);
+        setRatings([]);
+      }
+    };
+  
+    fetchAverageRating();
+  }, []); 
+   // Empty dependency array means it will run only once when the component mounts
+
 
 
   // Load approved artifacts from Firestore when the component mounts
@@ -144,6 +134,8 @@ const ProductsProvider = ({ children }) => {
 
    // Function to upload artifact to Firebase
    const uploadArtifactToFirebase = async (artifactData, userData) => {
+    console.log('Here is the user data', userData)
+    console.log('Here is the artifact data', artifactData)
     setUploadInProgress(true)
     try {
       // Upload image to Firebase Storage
@@ -153,6 +145,8 @@ const ProductsProvider = ({ children }) => {
   
       // Get download URL for the uploaded image
       const imageUrl = await getDownloadURL(imageRef);
+
+      console.log('Here is the image url', imageUrl)
   
       // Add artifact data to Firestore under collection 'artifacts'
       const db = getFirestore(app);
@@ -286,6 +280,33 @@ const ProductsProvider = ({ children }) => {
       window.alert('Error deleting product. Please try again.');
     }
   };
+
+
+
+  const submitRating = async (raterEmail, rating, comment = "") => {
+    try {
+      const db = getFirestore(app);
+  
+      // Create a new document in the "ratings" collection
+      const ratingsCollectionRef = collection(db, 'ratings');
+      const newRatingDocRef = await addDoc(ratingsCollectionRef, {
+        raterEmail: raterEmail,
+        rating: rating,
+        comment: comment
+      });
+  
+      console.log('Rating submitted successfully with ID:', newRatingDocRef.id);
+      
+      // Show an alert or do something else on successful submission
+      setIsRatingsModalOpen(false)
+      window.alert('Rating submitted successfully!');
+    } catch (error) {
+      console.error('Error submitting rating:', error.message);
+      // Show an alert for submission error
+      window.alert('Error submitting rating. Please try again.');
+    }
+  };
+  
   
   
 
@@ -309,7 +330,15 @@ const ProductsProvider = ({ children }) => {
       uploadInProgress,
       setUploadInProgress,
       setUploadModalOpen,
-      uploadModalOpen
+      uploadModalOpen,
+      submitRating,
+      setIsRatingsModalOpen,
+      isRatingsModalOpen,
+      setIsReviewModalOpen,
+      isReviewModalOpen,
+      ratings,
+      isPaymentModalOpen,
+      setIsPaymentModalOpen
     }}>
       {children}
     </ProductsContext.Provider>

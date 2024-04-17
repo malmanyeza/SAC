@@ -199,7 +199,7 @@ const UploadContentModal = ({ onClose }) => {
             <option value="Pottery">Pottery</option>
           </select>
           {formErrors.category && <div className="error">{formErrors.category}</div>}
-          <button type="submit" className="upload-button" disabled={!isFormValid()}>
+          <button type="submit" className="upload-button" disabled={!isFormValid()} onClick={handleSubmit}>
             {uploadInProgress ? (
               <RiLoader4Line className="upload-spinner" />
             ) : (

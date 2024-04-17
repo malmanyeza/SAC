@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './styles/MissionBox.css'; // CSS for styling
+import { ProductsContext } from '../../hooks/productsContext';
 
 const MissionBox = () => {
   const [displayText, setDisplayText] = useState('');
   const [showButton, setShowButton] = useState(false);
   const missionText = 'Whhere art meets the culture!';
+  const {setIsReviewModalOpen} = useContext(ProductsContext);
 
   useEffect(() => {
     let i = 0;
@@ -25,14 +27,17 @@ const MissionBox = () => {
     };
   }, [missionText]);
 
+  
+
   return (
     <div className="mission-box">
       <div className="mission-text">{displayText}</div>
       {showButton && (
-        <Link to="/catalogue" className="view-all-btn">
-          View Products
-        </Link>
+        <button className="view-all-btn" onClick={()=>setIsReviewModalOpen(true)} >
+          Reviews
+        </button>
       )}
+      
     </div>
   );
 };

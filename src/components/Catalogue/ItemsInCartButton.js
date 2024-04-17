@@ -1,15 +1,44 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { RiShoppingCart2Line } from 'react-icons/ri'; // Cart icon
 import './styles/ItemsInCartButton.css';
 import { ProductsContext } from '../../hooks/productsContext';
+import { UserDataContext } from '../../hooks/userDataContext';
 import ItemsInCartModal from './ItemsInCartModal'; // Import the ItemsInCartModal component
+import PaymentModal from './PaymentModal';
+import SignInModal from '../Home/SignInModal';
+import { set } from 'firebase/database';
 
 const ItemsInCartButton = () => {
-  const { numberOfItemsInCart } = useContext(ProductsContext);
+  const { numberOfItemsInCart, isPaymentModalOpen, setIsPaymentModalOpen } = useContext(ProductsContext);
+  const { userData } = useContext(UserDataContext);
   const [showModal, setShowModal] = useState(false);
+  const [loginModal, setLoginModal] = useState(false);
+  const [buyButtonClicked, setBuyButtonClicked] = useState(false);
+
+
+  useEffect(() => {
+    if (buyButtonClicked && userData.isLoggedIn) {
+      setLoginModal(false);
+      setBuyButtonClicked(false);
+      setShowModal(true);
+      
+    }
+  }, [userData.email]);
+
+  const closePaymentModal = () => {
+    setIsPaymentModalOpen(false);
+  };
 
   const handleButtonClick = () => {
-    setShowModal(true);
+    if (!userData.email) {
+      // If user is not logged in, setLoginModal to true
+      setLoginModal(true);
+      setBuyButtonClicked(true);
+    } else {
+      // If user is logged in, show the modal
+      setShowModal(true);
+      setBuyButtonClicked(true)
+    }
   };
 
   return (
@@ -24,6 +53,8 @@ const ItemsInCartButton = () => {
         <span>Buy Items</span>
       </button>
       {showModal && <ItemsInCartModal showModal={showModal} setShowModal={setShowModal} />}
+      {isPaymentModalOpen && <PaymentModal onClose={closePaymentModal} showModal={isPaymentModalOpen} />}
+      {loginModal && <SignInModal />}
     </>
   );
 };

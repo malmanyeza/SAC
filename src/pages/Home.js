@@ -8,12 +8,15 @@ import Header from '../components/Header';
 import HomeButtons from '../components/Home/HomeButton'; // Corrected component name
 import { useNavigate } from 'react-router-dom';
 import { UserDataContext } from '../hooks/userDataContext';
+import RatingsDisplayModal from '../components/Catalogue/RatingsDisplayModal';
+import { ProductsContext } from '../hooks/productsContext';
 
 const Home = () => {
 
   const navigate = useNavigate();
 
   const {  userData } = useContext(UserDataContext);
+  const { isReviewModalOpen, setIsReviewModalOpen } = useContext(ProductsContext);
 
   useEffect(() => {
 
@@ -24,6 +27,8 @@ const Home = () => {
     }
   }, [userData.isLoggedIn]);
 
+
+
   return (
     <div>
       <section id="hero">
@@ -32,7 +37,11 @@ const Home = () => {
           <MissionBox />
           <HomeButtons />
         </div>
+      
       </section>
+      {
+        isReviewModalOpen && <RatingsDisplayModal showModal={isReviewModalOpen} />
+      }
     </div>
   );
 }

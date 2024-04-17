@@ -1,0 +1,76 @@
+.contacts-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .contacts-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../public/images/sculptures.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .contacts-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(102, 102, 102, 0.5);
+    backdrop-filter: blur(3px);
+  }
+  
+  .contacts-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 50px;
+  }
+  
+  .contacts-header {
+    
+    margin-inline: 80px;
+  }
+  
+  .contacts-line {
+    width: 80%;
+    border: none;
+    border-top: 1px solid white;
+    margin-top: 50px;
+    margin-bottom: 100px;
+  }
+  
+  .contacts-text {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .contact-icon {
+    margin-right: 10px;
+  }
+  
+  .contact-name {
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+  }
+  
