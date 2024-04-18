@@ -144,9 +144,9 @@ const ProductsProvider = ({ children }) => {
       await uploadBytes(imageRef, artifactData.productImage);
   
       // Get download URL for the uploaded image
-      const imageUrl = await getDownloadURL(imageRef);
+      const imageURL = await getDownloadURL(imageRef);
 
-      console.log('Here is the image url', imageUrl)
+      console.log('Here is the image url', imageURL)
   
       // Add artifact data to Firestore under collection 'artifacts'
       const db = getFirestore(app);
@@ -156,9 +156,9 @@ const ProductsProvider = ({ children }) => {
         price: artifactData.productPrice,
         category: artifactData.category,
         description: artifactData.productDescription,
-        imageUrl: imageUrl,
+        imageUrl: imageURL,
         artisanName: artifactData.artisanName,
-        artisanImage: artifactData.artisanImage,
+        artisanImage: artifactData.artisanImage|| '',
         artisanUid: artifactData.artisanUid,
         id:null
       };

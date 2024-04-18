@@ -15,7 +15,7 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const {  userData } = useContext(UserDataContext);
+  const {  userData,setUserData } = useContext(UserDataContext);
   const { isReviewModalOpen, setIsReviewModalOpen } = useContext(ProductsContext);
 
   useEffect(() => {
@@ -23,7 +23,10 @@ const Home = () => {
     console.log(userData.isLoggedIn);
     if (userData.isLoggedIn) {
       navigate('/catalogue');
-      window.history.pushState(null, '', '/catalogue');
+      setUserData(prevUserData => ({
+               ...prevUserData,
+              isLoggedIn: false
+      }))
     }
   }, [userData.isLoggedIn]);
 

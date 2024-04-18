@@ -62,12 +62,13 @@ const UploadContentModal = ({ onClose }) => {
       return;
     }
 
+
     setFormData({
       ...formData,
       productImage: imageFile,
     });
   };
-
+  
   const handleSquareClick = () => {
     // Trigger the file input when square is clicked
     imageInputRef.current.click();

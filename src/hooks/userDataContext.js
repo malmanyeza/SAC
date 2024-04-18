@@ -27,9 +27,10 @@ export const UserDataProvider = ({ children }) => {
 
   // Function to sign up a user with email and password
   const signUpWithEmailAndPassword = async (email, password, userInfo) => {
-    setIsSignUpInProcess(true);
-    setIsSignUpInBackground(true);
+    
     try {
+      setIsSignUpInProcess(true);
+      setIsSignUpInBackground(true);
       // Sign up the user with Firebase Authentication
       const auth = getAuth();
       const { user } = await createUserWithEmailAndPassword(auth, email, password);

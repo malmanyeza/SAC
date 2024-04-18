@@ -16,19 +16,19 @@ const Contacts = () => {
           <hr className="contacts-line" />
           <div className="contact-item">
             <FaInstagram className="contact-icon" />
-            <span className="contact-name">Instagram: @your_instagram</span>
+            <span className="contact-name">Instagram: @_sac instagram</span>
           </div>
           <div className="contact-item">
             <FaTwitter className="contact-icon" />
-            <span className="contact-name">Twitter: @your_twitter</span>
+            <span className="contact-name">Twitter: @sac_twitter</span>
           </div>
           <div className="contact-item">
             <FaFacebookF className="contact-icon" />
-            <span className="contact-name">Facebook: @your_facebook</span>
+            <span className="contact-name">Facebook: @sac fb_handle</span>
           </div>
           <div className="contact-item">
             <FaPhoneAlt className="contact-icon" />
-            <span className="contact-name">Phone: +1234567890</span>
+            <span className="contact-name">Phone: +26341 235 678</span>
           </div>
           <hr className="contacts-line" />
         </div>

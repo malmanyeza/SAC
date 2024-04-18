@@ -13,8 +13,8 @@ function App() {
       <ProductsProvider>
         <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Home />} />
             <Route path="/catalogue" element={<Catalogue />} />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contacts" element={<Contacts/>} />
           </Routes>

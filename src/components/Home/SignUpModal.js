@@ -114,17 +114,7 @@ const SignUpModal = ({ setShowModal }) => {
   
     // Call signUpWithEmailAndPassword from the context
     signUpWithEmailAndPassword(newUser.email, newUser.password, newUser);
-  
-  
-    // Clear the form data
-    setFormData({
-      name: '',
-      surname: '',
-      email: '',
-      password: '',
-      about: '',
-      profileImage: null,
-    });
+    
   };
   
 

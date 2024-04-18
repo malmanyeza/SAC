@@ -6,7 +6,7 @@ const UpperNavigator = () => {
 
   const navigate = useNavigate();
 
-  const goToCatalogue = () => {
+  const goToHome = () => {
     navigate('/');
   };
 
@@ -23,7 +23,7 @@ const UpperNavigator = () => {
     <div className="upper-navigator">
       <div className="store-text">Catalogue.</div>
       <div className="nav-links">
-        <button className="upper-nav-link" onClick={goToCatalogue}>Home</button>
+        <button className="upper-nav-link" onClick={goToHome}>Home</button>
         <button className="upper-nav-link" onClick={goToAbout}>About</button>
         <button className="upper-nav-link" onClick={goToContacts}>Contacts</button>
       </div>

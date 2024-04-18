@@ -10,16 +10,16 @@ const SignInModal = () => {
 
   const { loginWithEmailAndPassword, setIsLoginInProcess, isLoginInBackground, userData,setUserData } = useContext(UserDataContext);
 
-  useEffect(() => {
-    if (userData.isLoggedIn) {
-      navigate('/catalogue');
-      // Set userData.isLoggedIn to false after navigating to catalogue
-      setUserData(prevUserData => ({
-        ...prevUserData,
-        isLoggedIn: false
-      }));
-    }
-  }, [userData.isLoggedIn]);
+  // useEffect(() => {
+  //   if (userData.isLoggedIn) {
+  //     navigate('/catalogue');
+  //     // Set userData.isLoggedIn to false after navigating to catalogue
+  //     setUserData(prevUserData => ({
+  //       ...prevUserData,
+  //       isLoggedIn: false
+  //     }));
+  //   }
+  // }, [userData.isLoggedIn]);
   
 
 
