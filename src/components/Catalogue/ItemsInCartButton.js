@@ -6,11 +6,10 @@ import { UserDataContext } from '../../hooks/userDataContext';
 import ItemsInCartModal from './ItemsInCartModal'; // Import the ItemsInCartModal component
 import PaymentModal from './PaymentModal';
 import SignInModal from '../Home/SignInModal';
-import { set } from 'firebase/database';
 
 const ItemsInCartButton = () => {
   const { numberOfItemsInCart, isPaymentModalOpen, setIsPaymentModalOpen } = useContext(ProductsContext);
-  const { userData } = useContext(UserDataContext);
+  const { userData, setIsLoginInProcess, isLoginInProcess } = useContext(UserDataContext);
   const [showModal, setShowModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
   const [buyButtonClicked, setBuyButtonClicked] = useState(false);
@@ -34,6 +33,7 @@ const ItemsInCartButton = () => {
       // If user is not logged in, setLoginModal to true
       setLoginModal(true);
       setBuyButtonClicked(true);
+      setIsLoginInProcess(true)
     } else {
       // If user is logged in, show the modal
       setShowModal(true);
@@ -54,7 +54,7 @@ const ItemsInCartButton = () => {
       </button>
       {showModal && <ItemsInCartModal showModal={showModal} setShowModal={setShowModal} />}
       {isPaymentModalOpen && <PaymentModal onClose={closePaymentModal} showModal={isPaymentModalOpen} />}
-      {loginModal && <SignInModal />}
+      {loginModal && isLoginInProcess&& <SignInModal />}
     </>
   );
 };
